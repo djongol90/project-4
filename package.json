@@ -2,6 +2,7 @@
   "name": "project-4",
   "version": "1.0.0",
   "description": "",
+<<<<<<< HEAD
   "main": "aboubakar.js",
   "dependencies": {
     "accepts": "^1.3.8",
@@ -69,9 +70,21 @@
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2"
   },
+=======
+  "main": "server.js",
+>>>>>>> a5e6fef05ad4c30988ec3c8a05583f75223c6f1b
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
+<<<<<<< HEAD
   "license": "ISC"
+=======
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  }
+>>>>>>> a5e6fef05ad4c30988ec3c8a05583f75223c6f1b
 }
