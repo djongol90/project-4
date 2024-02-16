@@ -1,4 +1,5 @@
 const express = require('express');
+<<<<<<< HEAD
 const morgan = require('morgan');
 const bodyParser = require('body-parser')
 const app = express();
@@ -14,12 +15,17 @@ app.post('/add', (req,res) => {
     res.send(req.body)
 
 })
+=======
+
+const app = express();
+>>>>>>> 42284d9791e541861b154be384034bb6c08c54e6
 
 
 
 
 
 
+<<<<<<< HEAD
 
 app.get('/hello', (req, res) => {
     console.log("bonjour tous le monde");
@@ -39,3 +45,8 @@ app.listen(PORT, () => {
 console.log(`le serveur nous ecoute sur le port: ${PORT}
 le lien : localhost :${PORT}`);
 });
+=======
+app.listen(3000, () => {
+    console.log('Le serveur nous ecoute sur le port: 3000')
+})
+>>>>>>> 42284d9791e541861b154be384034bb6c08c54e6
