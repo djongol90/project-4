@@ -1,33 +1,59 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
 
+const app = express();
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 mongoose.connect('mongodb://127.0.0.1:27017/test42');
 
-// const Cat = mongoose.model('Cat', {name: String});
-const Chien = mongoose.model('Chien', {name: String, category: String});
+const personSchema = new mongoose.Schema({
+    name: String,
+    lastName: String,
+    age: Number,
+    email: String
+});
 
-// const newChien = new Chien({name: "Dogg 2", category: "Afro"});
-// // console.log(newChien);
 
-// La fonction find() il return la liste de toutes les informations qui se trouve
-// au niveau de la table Chien
-// Chien.find().then(data => console.log(data));
+const Person = mongoose.model('Person', personSchema);
 
-// La fonction findById(ObjectId) prend en argument l'objectId et il nous return
-// un seul element dont l'id a ete passé en argument
-// Chien.findById("65cf9d5bc78d78359523da32").then(data => console.log(data));
 
-// La fonction findOne() il return un seul object
-// mais en passe en argument l'attribut qu'on veux filtrer avec
-// exple findOne({name: "le nom qu'on veux rechercher avec"}); 
-Chien.findOne({name: "Dogg 2"}).then(data => console.log(data))
+app.post('/add-person', (req, res) => {
+    
+    const data = req.body;
 
-// newChien.save().then(() => console.log('Le chien a ete ajouté'))
+    const newPerson = new Person(data);
 
-// const newCat = new Cat({name: 'Mioooioo'});
+    newPerson.save().then(() => {
+        res.json({
+            message: "La personne a été enregistrer!"
+        })
+    })
 
-// newCat.save().then(() => console.log("chat ajouté"));
+});
 
-// Cat.find().then((data) => {
-//     console.log(data);
-// })
+app.get('/persons', (req, res) => {
+
+
+    Person.find().then(data => {
+        res.json({
+            message: 'La liste des personne',
+            personnes: data
+        })
+    })
+})
+
+
+
+
+
+
+
+
+
+app.listen(3000, () => {
+    console.log('Le serveur est lancé!')
+})
+
