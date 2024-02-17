@@ -75,8 +75,13 @@ app.put('/person/update-person/:email', async(req, res) => {
     })
 })
 
-
-
+app.delete('/personnre-supprimer',async(req, res)=>{
+    const email = req.params.email;
+    await Person.deleteOne({email:email}, {name:req.body.name});
+    res.json({
+        message: "la personne a ete bien supprimer"
+    })
+})
 
 
 
