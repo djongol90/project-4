@@ -38,7 +38,37 @@ app.post('/add-person', (req, res) => {
 });
 
 app.get('/persons', (req, res) => {
-    Person.find().then(data => {
+
+    const name = req.query.name;
+    const lastName = req.query.lastName;
+    const age = req.query.age;
+    let filter = {};
+
+    if (name) {
+        // on verifi l'existence de name si name exist on doit 
+        // essayer d'ajouter dans l'objet filter
+        filter = {
+            name: name
+        }
+    }
+    if(lastName) {
+        filter = {
+            // Ici on a essayer de prendre en consideration 
+            // les informations des filter ci-dessus dans le cas ou
+            // name existe
+            ...filter, 
+            lastName: lastName,
+        }
+    }if (age) {
+        filter = {
+            ...filter,
+            age: age,
+        }
+    }
+
+    // on essaye de rechercher avec les mots clés qu'on a pris en consideration
+    // dans l'objet filter.
+    Person.find(filter).then(data => {
         res.json({
             message: 'La liste des personne',
             personnes: data
@@ -61,10 +91,16 @@ app.get('/person/:id', (req, res) => {
 app.get('/person/get-one/:email', async (req, res) => {
     const email = req.params.email;
     const person = await Person.findOne({email: email})
-    res.json({
-        message: 'La personne a été retrouvee!',
-        person: person
-    })
+    if (person) {
+        res.status(200).json({
+            message: 'La personne a été retrouvee!',
+            person: person
+        })
+    }else{
+        res.status(404).json({
+            message: "La personne n'a pas été retrouvee!",
+        })
+    }
 })
 
 app.put('/person/update-person/:email', async(req, res) => {
@@ -75,6 +111,7 @@ app.put('/person/update-person/:email', async(req, res) => {
     })
 })
 
+<<<<<<< HEAD
 app.delete('/personnre-supprimer',async(req, res)=>{
     const email = req.params.email;
     await Person.deleteOne({email:email}, {name:req.body.name});
@@ -82,6 +119,21 @@ app.delete('/personnre-supprimer',async(req, res)=>{
         message: "la personne a ete bien supprimer"
     })
 })
+=======
+app.delete('/person/delete/:email', async (req, res) => {
+    const email = req.params.email;
+
+    // await Person.findOneAndDelete()
+    await Person.deleteOne({email: email});
+
+    res.json({
+        message: "La personne a ete supprimée"
+    })
+})
+
+
+
+>>>>>>> a633d1749c3ad6a9743e9dc5a432f9d71183412c
 
 
 
