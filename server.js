@@ -79,6 +79,6 @@ app.put('/person/update-person/:email', async(req, res) => {
 
 
 app.listen(3000, () => {
-    console.log('Le serveur est lancé!')
+    console.log('Le serveur est bien lancé!')
 })
 
